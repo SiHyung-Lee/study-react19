@@ -1,20 +1,19 @@
 import { useState, useRef } from "react";
+import Input from "./components/Input";
+import EmailInput from "./components/EmailInput";
 
 function Signup() {
+  const [password, setPassword] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [phone, setPhone] = useState("");
+  const [errors, setErrors] = useState({});
   const [id, setId] = useState("");
+  const [domain, setDomain] = useState("gmail.com");
   const idRef = useRef(null);
   const passwordRef = useRef(null);
   const nicknameRef = useRef(null);
-  const counterRef = useRef(0);
-  const [domain, setDomain] = useState("gmail.com");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
-  const [nickname, setNickname] = useState("");
-  const [phone, setPhone] = useState("");
-  const domains = ["gmail.com", "naver.com", "daum.net", "nate.com"];
+  const phoneRef = useRef(null);
 
-  console.log("App", id);
-  console.log(errors);
   const onChangeEmail = (e) => {
     setId(e.target.value);
   };
@@ -23,18 +22,7 @@ function Signup() {
     setDomain(e.target.value);
   };
 
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const onChangeNickname = (e) => {
-    setNickname(e.target.value);
-  };
-
-  const fullDomain = `${id}@${domain}`;
-
   const onLogin = () => {
-    counterRef.current++;
     if (!id?.trim()) {
       setErrors({ idError: "아이디를 입력해주세요." });
       idRef.current?.focus();
@@ -46,77 +34,46 @@ function Signup() {
       return;
     }
     setErrors({});
-    console.log(fullDomain, password);
   };
+
+  const fullDomain = `${id}@${domain}`;
 
   return (
     <>
       <div>
-        <div>
-          <label htmlFor="id">아이디</label>
-          <input
-            ref={idRef}
-            type="text"
-            id="id"
-            value={id}
-            onChange={onChangeEmail}
-          />
-          {errors.idError && <div>{errors.idError}</div>}
-          {domain === "" ? null : <span>@</span>}
-          <select
-            value={domain}
-            onChange={onChangeDomain}>
-            {domains.map((d) => {
-              return (
-                <option
-                  key={d}
-                  value={d}>
-                  {d}
-                </option>
-              );
-            })}
-            <option value="">직접입력</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="password">비밀번호</label>
-          <input
-            ref={passwordRef}
-            type="password"
-            id="password"
-            value={password}
-            onChange={onChangePassword}
-          />
-
-          {errors.passwordError && <div>{errors.passwordError}</div>}
-        </div>
-        <div>
-          <label htmlFor="phone">전화번호</label>
-          <input
-            ref={phoneRef}
-            type="text"
-            id="phone"
-            value={phone}
-            onChange={onChangePhone}
-          />
-
-          {errors.nicknameError && <div>{errors.nicknameError}</div>}
-        </div>
-        <div>
-          <label htmlFor="nickname">닉네임</label>
-          <input
-            ref={nicknameRef}
-            type="text"
-            id="nickname"
-            value={nickname}
-            onChange={onChangeNickname}
-          />
-
-          {errors.nicknameError && <div>{errors.nicknameError}</div>}
-        </div>
+        <EmailInput
+          error={errors.idError}
+          idRef={idRef}
+          id={id}
+          onChangeEmail={onChangeEmail}
+          domain={domain}
+          onChangeDomain={onChangeDomain}
+        />
+        <Input
+          text="비밀번호"
+          id="password"
+          type="password"
+          value={password}
+          errors={errors.passwordError}
+          ref={passwordRef}
+        />
+        <Input
+          text="닉네임"
+          id="nickname"
+          value={nickname}
+          errors={errors.nicknameError}
+          ref={nicknameRef}
+        />
+        <Input
+          text="전화번호"
+          id="phone"
+          type="tel"
+          value={phone}
+          errors={errors.phoneError}
+          ref={phoneRef}
+        />
         <button onClick={onLogin}>회원가입</button>
       </div>
-      <div>count: {counterRef.current}</div>
       <div>로그인</div>
     </>
   );
