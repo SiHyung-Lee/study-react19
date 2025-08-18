@@ -1,26 +1,17 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Input from "./components/Input";
 import EmailInput from "./components/EmailInput";
+import useInput from "./hooks/useInput";
+import useEmailInput from "./hooks/useEmailInput";
 
 function Signup() {
-  const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [phone, setPhone] = useState("");
+  const [nickname, nicknameRef, onChangeNickname] = useInput("");
+  const [phone, phoneRef, onChangePhone] = useInput("");
+  const [password, passwordRef, onChangePassword] = useInput("");
   const [errors, setErrors] = useState({});
-  const [id, setId] = useState("");
-  const [domain, setDomain] = useState("gmail.com");
-  const idRef = useRef(null);
-  const passwordRef = useRef(null);
-  const nicknameRef = useRef(null);
-  const phoneRef = useRef(null);
+  const [id, domain, idRef, onChangeEmail, onChangeDomain] = useEmailInput();
 
-  const onChangeEmail = (e) => {
-    setId(e.target.value);
-  };
-
-  const onChangeDomain = (e) => {
-    setDomain(e.target.value);
-  };
+  const fullDomain = `${id}@${domain}`;
 
   const onLogin = () => {
     if (!id?.trim()) {
@@ -36,8 +27,6 @@ function Signup() {
     setErrors({});
   };
 
-  const fullDomain = `${id}@${domain}`;
-
   return (
     <>
       <div>
@@ -45,8 +34,8 @@ function Signup() {
           error={errors.idError}
           idRef={idRef}
           id={id}
-          onChangeEmail={onChangeEmail}
           domain={domain}
+          onChangeEmail={onChangeEmail}
           onChangeDomain={onChangeDomain}
         />
         <Input
@@ -56,6 +45,7 @@ function Signup() {
           value={password}
           errors={errors.passwordError}
           ref={passwordRef}
+          onChange={onChangePassword}
         />
         <Input
           text="닉네임"
@@ -63,6 +53,7 @@ function Signup() {
           value={nickname}
           errors={errors.nicknameError}
           ref={nicknameRef}
+          onChange={onChangeNickname}
         />
         <Input
           text="전화번호"
@@ -71,6 +62,7 @@ function Signup() {
           value={phone}
           errors={errors.phoneError}
           ref={phoneRef}
+          onChange={onChangePhone}
         />
         <button onClick={onLogin}>회원가입</button>
       </div>

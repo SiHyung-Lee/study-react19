@@ -10,7 +10,11 @@ function EmailInput({
 
   return (
     <div>
-      <label htmlFor="id">아이디</label>
+      <label
+        htmlFor="id"
+        style={{ display: "inline-block", width: "80px" }}>
+        아이디
+      </label>
       <input
         ref={idRef}
         type="text"

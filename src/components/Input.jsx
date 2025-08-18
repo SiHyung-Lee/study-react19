@@ -1,15 +1,11 @@
-import { useState } from "react";
-
-function Input({ id, text = 'text', ref, error, type }) {
-  const [value, setValue] = useState("");
-
-  const onChange = (e) => {
-    setValue(e.target.value);
-  };
-
+function Input({ id, text, ref, value, error, type = "text", onChange }) {
   return (
     <div>
-      <label htmlFor={id}>{text}</label>
+      <label
+        htmlFor={id}
+        style={{ display: "inline-block", width: "80px" }}>
+        {text}
+      </label>
       <input
         ref={ref}
         id={id}
