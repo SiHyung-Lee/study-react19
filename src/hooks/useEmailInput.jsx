@@ -1,17 +1,17 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 
 function useEmailInput() {
   const [id, setId] = useState("");
   const [domain, setDomain] = useState("gmail.com");
   const idRef = useRef(null);
 
-  const onChangeEmail = (e) => {
+  const onChangeEmail = useCallback((e) => {
     setId(e.target.value);
-  };
+  }, []);
 
-  const onChangeDomain = (e) => {
+  const onChangeDomain = useCallback((e) => {
     setDomain(e.target.value);
-  };
+  }, []);
 
   return [id, domain, idRef, onChangeEmail, onChangeDomain];
 }

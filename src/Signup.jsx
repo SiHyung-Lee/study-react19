@@ -25,6 +25,7 @@ function Signup() {
       return;
     }
     setErrors({});
+    console.log(fullDomain, password);
   };
 
   return (

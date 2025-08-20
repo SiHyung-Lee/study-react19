@@ -1,11 +1,6 @@
-function EmailInput({
-  error,
-  idRef,
-  id,
-  domain,
-  onChangeEmail,
-  onChangeDomain,
-}) {
+import { memo } from "react";
+
+function EmailInput({ error, idRef, id, domain, onChangeEmail, onChangeDomain }) {
   const domains = ["gmail.com", "naver.com", "daum.net", "nate.com"];
 
   return (
@@ -42,4 +37,4 @@ function EmailInput({
   );
 }
 
-export default EmailInput;
+export default memo(EmailInput);

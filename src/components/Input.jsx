@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 function Input({ id, text, ref, value, error, type = "text", onChange }) {
   return (
     <div>
@@ -19,4 +21,4 @@ function Input({ id, text, ref, value, error, type = "text", onChange }) {
   );
 }
 
-export default Input;
+export default memo(Input);
