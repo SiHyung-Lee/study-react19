@@ -13,7 +13,7 @@ function Signup() {
 
   const fullDomain = `${id}@${domain}`;
 
-  const onLogin = () => {
+  const onSignup = () => {
     if (!id?.trim()) {
       setErrors({ idError: "아이디를 입력해주세요." });
       idRef.current?.focus();
@@ -65,7 +65,7 @@ function Signup() {
           ref={phoneRef}
           onChange={onChangePhone}
         />
-        <button onClick={onLogin}>회원가입</button>
+        <button onClick={onSignup}>회원가입</button>
       </div>
       <div>로그인</div>
     </>
