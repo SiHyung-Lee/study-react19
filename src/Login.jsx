@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [id, setId] = useState("");
@@ -9,6 +10,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const domains = ["gmail.com", "naver.com", "daum.net", "nate.com"];
+  const navigate = useNavigate();
 
   console.log("App", id);
   console.log(errors);
@@ -86,7 +88,7 @@ function Login() {
         </div>
       </div>
       <div>count: {counterRef.current}</div>
-      <div>회원가입</div>
+      <button onClick={() => navigate("/signup")}>회원가입</button>
     </>
   );
 }
